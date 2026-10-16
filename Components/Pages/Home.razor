@@ -1,0 +1,63 @@
+﻿@page "/"
+@inject SugboBites.Services.FoodGuideService FoodGuide
+
+<PageTitle>Sugbo Bites | A Cebu food guide</PageTitle>
+<HeadContent><meta name="description" content="Explore Cebu's signature dishes, food traditions and places to taste the island. A practical, source-linked guide to Cebuano food." /></HeadContent>
+
+<section class="hero-shell">
+    <div class="hero-copy">
+        <span class="eyebrow">A local food guide to Cebu</span>
+        <h1>Come hungry.<br />Leave with a <span>story.</span></h1>
+        <p>From crisp lechon to seaside sugba, get to know Cebu through the dishes people gather around.</p>
+        <a class="primary-action" href="/explore">Explore the food guide <span aria-hidden="true">→</span></a>
+        <div class="hero-note"><span class="hero-note-icon" aria-hidden="true">✦</span><span>Dish stories, local places<br /><strong>Practical notes with sources</strong></span></div>
+    </div>
+    <div class="hero-photo-wrap">
+        <img src="/images/grilled_fish_and_seafood.jpg" alt="Grilled fish and seafood, a coastal Cebu-style meal" class="hero-photo" fetchpriority="high" />
+        <div class="photo-caption"><span class="caption-dot"></span> Sugba · grilled seafood</div>
+    </div>
+</section>
+
+<section class="home-section" aria-labelledby="featured-title">
+    <div class="section-heading">
+        <div><span class="eyebrow">A first taste of Sugbo</span><h2 id="featured-title">Dishes worth getting to know</h2></div>
+        <a class="text-action" href="/explore">See the full food guide <span aria-hidden="true">→</span></a>
+    </div>
+    <div class="dish-grid">
+        @foreach (var dish in FoodGuide.All.Take(3))
+        {
+            <article class="dish-card">
+                <a class="dish-card-link" href="/food/@dish.Id" aria-label="Read about @dish.Name">
+                    <img src="@dish.ImageUrl" alt="@dish.ImageAlt" loading="lazy" decoding="async" />
+                    <div class="dish-copy"><span class="dish-category">@dish.Category</span><h3>@dish.Name</h3><p>@dish.Description</p><span class="card-more">Read the dish story <span aria-hidden="true">→</span></span></div>
+                </a>
+            </article>
+        }
+    </div>
+</section>
+
+<section class="home-section destinations-section" aria-labelledby="destinations-title">
+    <div class="section-heading"><div><span class="eyebrow">Where food meets place</span><h2 id="destinations-title">Follow the flavors around Cebu</h2></div></div>
+    <div class="destination-grid">
+        <article class="destination-card"><span aria-hidden="true" class="destination-icon">01</span><div><span class="dish-category">Cebu City</span><h3>Carbon Market</h3><p>A long-standing city market and food stop, known for fresh produce and street food.</p><a href="https://www.cebu.gov.ph/about/" target="_blank" rel="noopener noreferrer">Cebu Provincial Government · food tourism <span aria-hidden="true">↗</span></a></div></article>
+        <article class="destination-card"><span aria-hidden="true" class="destination-icon">02</span><div><span class="dish-category">South Cebu</span><h3>Carcar City</h3><p>Pair the heritage center with a taste of the city's well-known lechon and chicharon.</p><a href="https://tourism.cebu.gov.ph/explore/carcar-city/" target="_blank" rel="noopener noreferrer">Carcar City Tourism <span aria-hidden="true">↗</span></a></div></article>
+        <article class="destination-card"><span aria-hidden="true" class="destination-icon">03</span><div><span class="dish-category">North Cebu</span><h3>Liloan</h3><p>Explore a northern Cebu town known for rosquillos and local delicacies.</p><a href="https://tourism.cebu.gov.ph/explore/liloan/" target="_blank" rel="noopener noreferrer">Liloan Tourism · local specialties <span aria-hidden="true">↗</span></a></div></article>
+    </div>
+</section>
+
+<section class="place-feature" aria-labelledby="place-title">
+    <img src="/images/lechon.jpg" alt="Cebu lechon, a regional dish; this is not a restaurant photograph" loading="lazy" decoding="async" />
+    <div><span class="eyebrow">A verified place to begin</span><h2 id="place-title">House of Lechon</h2><p>A Cebu City restaurant serving Filipino food, including Cebu lechon. The Michelin Guide lists it at Acacia and Tojong Street.</p><p class="source-note">Dish photograph is illustrative, not a venue photo. Restaurant details can change; check the current listing before you go. This guide does not take bookings.</p><a class="text-action" href="https://guide.michelin.com/ph/en/central-visayas/cebu-city_2340421/restaurant/house-of-lechon" target="_blank" rel="noopener noreferrer">View House of Lechon on the MICHELIN Guide <span aria-hidden="true">↗</span></a></div>
+</section>
+
+<section class="home-section restaurant-section" aria-labelledby="restaurants-title">
+    <div class="section-heading"><div><span class="eyebrow">Cebu dining, from street food to modern kitchens</span><h2 id="restaurants-title">Restaurant notes from the MICHELIN Guide</h2></div></div>
+    <p class="section-lede">A few Cebu listings to explore. Their menus, prices and hours can change; use each restaurant's current listing before you visit.</p>
+    <div class="restaurant-grid">
+        <article class="restaurant-card"><span class="restaurant-kind">Pasil · Street food</span><h3>Esmen</h3><p>The Guide describes this market-side eatery through linarang, a sour fish soup made with fish and cooked over a wood fire.</p><a href="https://guide.michelin.com/ph/en/central-visayas/cebu-city_2340421/restaurant/esmen" target="_blank" rel="noopener noreferrer">Read Esmen's MICHELIN listing <span aria-hidden="true">↗</span></a></article>
+        <article class="restaurant-card"><span class="restaurant-kind">Capitol Site · Filipino, contemporary</span><h3>Abli</h3><p>A Cebuano-inspired contemporary menu and the restaurant's torta-like Morta dessert are highlighted in the Guide.</p><a href="https://guide.michelin.com/ph/en/central-visayas/cebu-city_2340421/restaurant/abli" target="_blank" rel="noopener noreferrer">Read Abli's MICHELIN listing <span aria-hidden="true">↗</span></a></article>
+    </div>
+</section>
+
+<section class="editorial-note"><span class="eyebrow">About this guide</span><p>Dish descriptions are editorial introductions. Business details link to their publisher; prices, opening hours, reviews, and availability are not inferred. Check directly with a venue before visiting.</p><a href="/explore">Browse dishes and save ideas for your visit <span aria-hidden="true">→</span></a></section>
+
