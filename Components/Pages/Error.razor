@@ -1,0 +1,14 @@
+﻿@page "/Error"
+@using System.Diagnostics
+
+<PageTitle>Something went wrong | Sugbo Bites</PageTitle>
+<section class="empty-state error-state"><span class="eyebrow">A brief detour</span><h1>We couldn't load that page</h1><p>Please try again. If the problem continues, return to the food guide and start there.</p><a class="primary-action" href="/">Back to Sugbo Bites <span aria-hidden="true">→</span></a>
+@if (ShowRequestId) { <p class="request-id">Reference: @RequestId</p> }
+</section>
+
+@code {
+    [CascadingParameter] private HttpContext? HttpContext { get; set; }
+    private string? RequestId { get; set; }
+    private bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
+    protected override void OnInitialized() => RequestId = Activity.Current?.Id ?? HttpContext?.TraceIdentifier;
+}
