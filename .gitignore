@@ -1,0 +1,45 @@
+﻿# .NET build output
+[Bb]in/
+[Oo]bj/
+artifacts/
+TestResults/
+[Dd]ebug/
+[Rr]elease/
+
+# Node and Tailwind dependencies
+node_modules/
+
+# IDE and editor state
+.vs/
+.vscode/
+.idea/
+.fleet/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Local environment and configuration
+.env
+.env.*
+!.env.example
+appsettings.Local.json
+appsettings.*.local.json
+secrets*.json
+
+# Credentials and local certificates
+*.pfx
+*.p12
+*.pem
+*.key
+
+# Publish and package artifacts
+publish/
+*.publishsettings
+*.pubxml.user
+packages/
+
+# Operating system files
+.DS_Store
+Thumbs.db
+Desktop.ini
