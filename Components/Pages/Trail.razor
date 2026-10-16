@@ -1,0 +1,31 @@
+﻿@page "/trail"
+@using SugboBites.Services
+@implements IDisposable
+@inject FoodTrailState TrailState
+
+<PageTitle>My Food Trail | Sugbo Bites</PageTitle>
+<HeadContent><meta name="description" content="Keep a personal list of Cebu dishes to try during this visit." /></HeadContent>
+
+<section class="page-intro trail-intro"><span class="eyebrow">Your Cebu food notes</span><h1>My food trail</h1><p>Keep the dishes you want to try together while you explore. Your list is private to this visit and clears when your server session ends.</p></section>
+
+@if (TrailState.SelectedDishes.Count == 0)
+{
+    <section class="empty-state"><span class="empty-icon" aria-hidden="true">✳</span><h2>Your trail starts with a dish</h2><p>Save lechon, ngohiong or a coastal seafood meal from the guide. No account is needed for this visit.</p><a class="primary-action" href="/explore">Explore Cebu's food <span aria-hidden="true">→</span></a></section>
+}
+else
+{
+    <section class="trail-toolbar" aria-live="polite"><div><span class="eyebrow">Saved for this visit</span><h2>@TrailState.SelectedDishes.Count @(TrailState.SelectedDishes.Count == 1 ? "dish" : "dishes") on your trail</h2></div><button type="button" class="clear-action" @onclick="TrailState.Clear">Clear my trail</button></section>
+    <ol class="trail-list" aria-label="Your saved dishes">
+        @foreach (var dish in TrailState.SelectedDishes)
+        {
+            <li class="trail-item"><img src="@dish.ImageUrl" alt="@dish.ImageAlt" loading="lazy" decoding="async" /><div class="trail-item-copy"><span class="dish-category">@dish.Category</span><h3><a href="/food/@dish.Id">@dish.Name</a></h3><p>@dish.Location</p><a class="text-action" href="@dish.SourceUrl" target="_blank" rel="noopener noreferrer">Source: @dish.SourceName <span aria-hidden="true">↗</span></a></div><button type="button" class="remove-action" aria-label="Remove @dish.Name from your trail" @onclick="() => TrailState.Remove(dish.Id)">Remove</button></li>
+        }
+    </ol>
+    <section class="trail-tip"><span aria-hidden="true">i</span><p>Planning note: this is a personal checklist, not a booking or reservation. Confirm venue availability, current hours and prices directly before travelling.</p></section>
+}
+
+@code {
+    protected override void OnInitialized() => TrailState.Changed += Refresh;
+    private void Refresh() => _ = InvokeAsync(StateHasChanged);
+    public void Dispose() => TrailState.Changed -= Refresh;
+}

@@ -1,0 +1,23 @@
+﻿@using SugboBites.Services
+@implements IDisposable
+@inject FoodTrailState TrailState
+
+<nav class="main-nav" aria-label="Main navigation">
+    <NavLink href="/" Match="NavLinkMatch.All">Home</NavLink>
+    <NavLink href="/explore">Explore food</NavLink>
+    <NavLink href="/trail" class="trail-nav-link">
+        My food trail
+        @if (TrailState.SelectedDishes.Count > 0)
+        {
+            <span class="nav-count" aria-label="@TrailState.SelectedDishes.Count saved dishes">@TrailState.SelectedDishes.Count</span>
+        }
+    </NavLink>
+</nav>
+
+@code {
+    protected override void OnInitialized() => TrailState.Changed += Refresh;
+
+    private void Refresh() => _ = InvokeAsync(StateHasChanged);
+
+    public void Dispose() => TrailState.Changed -= Refresh;
+}
