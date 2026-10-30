@@ -2,37 +2,37 @@
 
 namespace SugboBites.Services;
 
-/// <summary>Saved dishes for the current interactive server circuit. It does not store bookings or payments.</summary>
+/// <summary>Saved dishes for the current interactive server circuit; a full page reload starts a new trail.</summary>
 public sealed class FoodTrailState
 {
-    private readonly List<FoodSpot> selectedDishes = [];
+    private readonly List<Dish> savedDishes = [];
 
-    public IReadOnlyList<FoodSpot> SelectedDishes => selectedDishes;
+    public IReadOnlyList<Dish> SavedDishes => savedDishes;
     public event Action? Changed;
 
-    public bool Contains(int foodSpotId) => selectedDishes.Any(dish => dish.Id == foodSpotId);
+    public bool Contains(int dishId) => savedDishes.Any(dish => dish.Id == dishId);
 
-    public bool Add(FoodSpot foodSpot)
+    public bool Add(Dish dish)
     {
-        if (Contains(foodSpot.Id)) return false;
-        selectedDishes.Add(foodSpot);
+        if (Contains(dish.Id)) return false;
+        savedDishes.Add(dish);
         Changed?.Invoke();
         return true;
     }
 
-    public bool Remove(int foodSpotId)
+    public bool Remove(int dishId)
     {
-        var dish = selectedDishes.FirstOrDefault(item => item.Id == foodSpotId);
+        var dish = savedDishes.FirstOrDefault(item => item.Id == dishId);
         if (dish is null) return false;
-        selectedDishes.Remove(dish);
+        savedDishes.Remove(dish);
         Changed?.Invoke();
         return true;
     }
 
     public void Clear()
     {
-        if (selectedDishes.Count == 0) return;
-        selectedDishes.Clear();
+        if (savedDishes.Count == 0) return;
+        savedDishes.Clear();
         Changed?.Invoke();
     }
 }

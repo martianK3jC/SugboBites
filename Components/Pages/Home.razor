@@ -24,7 +24,7 @@
         <a class="text-action" href="/explore">See the full food guide <span aria-hidden="true">→</span></a>
     </div>
     <div class="dish-grid">
-        @foreach (var dish in FoodGuide.All.Take(3))
+        @foreach (var dish in FoodGuide.Dishes.Take(3))
         {
             <article class="dish-card">
                 <a class="dish-card-link" href="/food/@dish.Id" aria-label="Read about @dish.Name">

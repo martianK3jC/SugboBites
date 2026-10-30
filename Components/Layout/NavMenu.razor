@@ -7,9 +7,9 @@
     <NavLink href="/explore">Explore food</NavLink>
     <NavLink href="/trail" class="trail-nav-link">
         My food trail
-        @if (TrailState.SelectedDishes.Count > 0)
+        @if (TrailState.SavedDishes.Count > 0)
         {
-            <span class="nav-count" aria-label="@TrailState.SelectedDishes.Count saved dishes">@TrailState.SelectedDishes.Count</span>
+            <span class="nav-count" aria-label="@TrailState.SavedDishes.Count saved dishes">@TrailState.SavedDishes.Count</span>
         }
     </NavLink>
 </nav>

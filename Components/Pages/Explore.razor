@@ -21,7 +21,7 @@
 </section>
 
 @{
-    var matchingDishes = FoodGuide.All.Where(MatchesFilters).ToList();
+    var matchingDishes = FoodGuide.Dishes.Where(MatchesFilters).ToList();
 }
 <p class="result-count" aria-live="polite">@matchingDishes.Count @(matchingDishes.Count == 1 ? "dish" : "dishes") in the guide</p>
 @if (matchingDishes.Count == 0)
@@ -48,12 +48,11 @@ else
     private string selectedCategory = "All";
     private readonly string[] categories = ["All", "Roast & share", "Grill & street food", "Seafood & island flavors"];
 
-    private bool MatchesFilters(FoodSpot dish)
+    private bool MatchesFilters(Dish dish)
     {
         var query = searchText.Trim();
         var matchesQuery = query.Length == 0
             || dish.Name.Contains(query, StringComparison.OrdinalIgnoreCase)
-            || dish.Dish.Contains(query, StringComparison.OrdinalIgnoreCase)
             || dish.Category.Contains(query, StringComparison.OrdinalIgnoreCase)
             || dish.Location.Contains(query, StringComparison.OrdinalIgnoreCase)
             || dish.Description.Contains(query, StringComparison.OrdinalIgnoreCase);
