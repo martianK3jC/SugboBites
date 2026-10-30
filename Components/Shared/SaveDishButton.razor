@@ -1,0 +1,23 @@
+@inject FoodTrailState TrailState
+
+<button type="button"
+        class="@(Compact ? "save-action" : "primary-action detail-save")"
+        aria-label="@(IsSaved ? $"{Dish.Name} saved to my food trail" : $"Save {Dish.Name} to my food trail")"
+        disabled="@IsSaved"
+        @onclick="() => TrailState.Add(Dish)">
+    @if (Compact)
+    {
+        @(IsSaved ? "Saved ✓" : "＋ Save")
+    }
+    else
+    {
+        @(IsSaved ? "Saved to your food trail ✓" : "＋ Save to my food trail")
+    }
+</button>
+
+@code {
+    [Parameter, EditorRequired] public Dish Dish { get; set; } = default!;
+    [Parameter] public bool Compact { get; set; }
+
+    private bool IsSaved => TrailState.Contains(Dish.Id);
+}
