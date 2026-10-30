@@ -24,6 +24,7 @@ else
 
 @code {
     [Parameter] public int Id { get; set; }
+    [CascadingParameter] private HttpContext? HttpContext { get; set; }
     private Dish? dish;
 
     protected override void OnParametersSet()
@@ -32,6 +33,11 @@ else
         if (dish is not null && dish.Id != Id)
         {
             Navigation.NavigateTo($"/food/{dish.Id}", replace: true);
+        }
+
+        if (dish is null && HttpContext is not null && !HttpContext.Response.HasStarted)
+        {
+            HttpContext.Response.StatusCode = StatusCodes.Status404NotFound;
         }
     }
 

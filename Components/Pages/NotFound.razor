@@ -1,0 +1,23 @@
+@page "/not-found"
+
+<PageMetadata Title="Page not found | Sugbo Bites"
+              Description="This page could not be found. Explore the Cebu food guide to find your way." />
+
+<section class="empty-state">
+    <span class="eyebrow">404 · Page not found</span>
+    <h1>That path doesn't lead to a dish</h1>
+    <p>The page may have moved. Head back to the food guide to find your way.</p>
+    <a class="primary-action" href="/explore">Explore Cebu's food <span aria-hidden="true">→</span></a>
+</section>
+
+@code {
+    [CascadingParameter] private HttpContext? HttpContext { get; set; }
+
+    protected override void OnInitialized()
+    {
+        if (HttpContext is not null && !HttpContext.Response.HasStarted)
+        {
+            HttpContext.Response.StatusCode = StatusCodes.Status404NotFound;
+        }
+    }
+}
