@@ -9,7 +9,7 @@
         My food trail
         @if (TrailState.SavedDishes.Count > 0)
         {
-            <span class="nav-count" aria-label="@TrailState.SavedDishes.Count saved dishes">@TrailState.SavedDishes.Count</span>
+            <span class="nav-count" aria-label="@TrailState.SavedDishes.Count saved @(TrailState.SavedDishes.Count == 1 ? "dish" : "dishes")">@TrailState.SavedDishes.Count</span>
         }
     </NavLink>
 </nav>

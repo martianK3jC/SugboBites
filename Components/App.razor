@@ -16,15 +16,7 @@
     <a class="skip-link" href="#main-content">Skip to content</a>
     <Routes @rendermode="InteractiveServer" />
     <script src="_framework/blazor.web.js"></script>
-    <script>
-        document.addEventListener('click', function (event) {
-            if (event.target.closest('#blazor-error-ui .dismiss')) document.getElementById('blazor-error-ui').style.display = 'none';
-        });
-        window.addEventListener('blazor-error', function () {
-            const notice = document.getElementById('blazor-error-ui');
-            if (notice) notice.style.display = 'block';
-        });
-    </script>
+    <script src="js/site.js"></script>
 </body>
 </html>
 

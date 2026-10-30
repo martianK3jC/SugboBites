@@ -37,7 +37,7 @@
 .main-nav a { padding: 10px 16px; border-radius: 999px; color: #56645d; font-size: 14px; font-weight: 600; text-decoration: none; white-space: nowrap; transition: background .2s,color .2s; }
 .main-nav a:hover { background: #f1f3ef; color: #17483b; }.main-nav a.active { background: #e8f0e9; color: #17483b; }
 .trail-nav-link { display: inline-flex; align-items: center; gap: 8px; }.nav-count { min-width: 20px; height: 20px; display: inline-grid; place-items: center; border-radius: 99px; background: #17483b; color: white; font-size: 11px; }
-.page-content { flex: 1; padding: 42px 0 64px; }.content-inner { min-width: 0; }
+.page-content { scroll-margin-top: 130px; flex: 1; padding: 42px 0 64px; }.content-inner { min-width: 0; }
 .site-footer { border-top: 1px solid #e9e8e1; background: white; }.footer-inner { min-height: 100px; padding-block: 18px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 14px 22px; color: #829087; font-size: 12px; }.footer-brand { color: #1d493b; font: 700 17px Georgia,serif; text-decoration: none; }.footer-inner nav { display: flex; flex-wrap: wrap; gap: 18px; }.footer-inner nav a { color: #66756d; text-decoration: none; }.footer-inner nav a:hover { color: #d66b36; }.footer-disclaimer { flex-basis: 100%; margin: 0; color: #8b948d; font-size: 11px; }
 #blazor-error-ui { display: none; position: fixed; z-index: 1000; bottom: 0; left: 0; width: 100%; padding: 14px 48px 14px 20px; background: #fff4dc; box-shadow: 0 -2px 12px #0002; }#blazor-error-ui .dismiss { position: absolute; top: 8px; right: 12px; border: 0; background: none; cursor: pointer; font-size: 22px; }
 
