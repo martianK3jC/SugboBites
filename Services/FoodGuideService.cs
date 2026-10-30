@@ -14,7 +14,7 @@ public sealed class FoodGuideService
         {
             Id = 1,
             Name = "Cebu Lechon",
-            Category = "Roast & share",
+            Category = "Roasted",
             Location = "Cebu City and across Cebu",
             Description = "Whole pig roasted until the skin turns crisp and the meat stays fragrant with herbs and aromatics.",
             Story = "Lechon is a celebratory centerpiece as much as a meal. Cebu's provincial tourism office highlights the island's distinctive herb-seasoned roast; in Carcar, the local style is especially well known.",
@@ -27,20 +27,20 @@ public sealed class FoodGuideService
         {
             Id = 2,
             Name = "Carcar Lechon",
-            Category = "Roast & share",
+            Category = "Roasted",
             Location = "Carcar City, South Cebu",
             Description = "A southern Cebu specialty associated with Carcar's public market and heritage-town food culture.",
             Story = "Pair a market meal with a walk around Carcar's heritage plaza. The city sits roughly 40 km south of Cebu City; travel time depends on traffic. Market trade and stall availability can change, so check locally before making a dedicated trip.",
             ImageUrl = "/images/roast_pork.jpg",
             ImageAlt = "Roasted pork served as a Cebu lechon meal",
-            SourceName = "Carcar City Tourism Office",
+            SourceName = "Cebu Provincial Tourism Office",
             SourceUrl = CarcarTourism
         },
         new()
         {
             Id = 3,
             Name = "Pork Barbecue & Puso",
-            Category = "Grill & street food",
+            Category = "Grilled",
             Location = "Cebu City and towns across Cebu",
             Description = "Char-grilled pork skewers served with puso, rice wrapped in woven coconut leaves.",
             Story = "A familiar Cebuano pairing for a casual meal: smoky barbecue and compact hanging rice. Try it at a local grill, and ask the vendor what is freshly cooked that day.",
@@ -53,7 +53,7 @@ public sealed class FoodGuideService
         {
             Id = 4,
             Name = "Chicken Barbecue & Puso",
-            Category = "Grill & street food",
+            Category = "Grilled",
             Location = "Cebu City and towns across Cebu",
             Description = "Marinated chicken cooked over a grill and commonly enjoyed with puso.",
             Story = "Grilled food is part of everyday Cebu dining. This guide describes the dish, not a specific vendor; choose a busy stall and check today's menu and prices in person.",
@@ -66,7 +66,7 @@ public sealed class FoodGuideService
         {
             Id = 5,
             Name = "Cebu Ngohiong",
-            Category = "Grill & street food",
+            Category = "Fried",
             Location = "Cebu City",
             Description = "A crisp fried roll with a savory filling and a distinct five-spice character, often served with dipping sauce.",
             Story = "Ngohiong is a well-loved Cebu snack with a flavor all its own. Recipes and fillings differ from kitchen to kitchen; this entry is a dish introduction, not a claim about one restaurant's recipe.",
@@ -77,22 +77,9 @@ public sealed class FoodGuideService
         },
         new()
         {
-            Id = 6,
-            Name = "Ngohiong Snack Plate",
-            Category = "Grill & street food",
-            Location = "Cebu City and nearby towns",
-            Description = "Crisp ngohiong served as a snack plate, an easy stop during a city food walk.",
-            Story = "Small eateries serve their own versions and accompaniments. Ask what comes with the order and confirm the current price before buying.",
-            ImageUrl = "/images/Ngohiong_snack_plate.jpg",
-            ImageAlt = "A snack plate of Cebu ngohiong",
-            SourceName = "Cebu Provincial Tourism Office",
-            SourceUrl = CebuTourism
-        },
-        new()
-        {
             Id = 7,
             Name = "Sugba: Grilled Seafood",
-            Category = "Seafood & island flavors",
+            Category = "Grilled",
             Location = "Coastal Cebu and Mactan",
             Description = "Fresh fish and seafood cooked over a grill, often ordered for sharing by the coast.",
             Story = "Sugba is the grilled part of the Cebuano sutukil dining tradition. Ask what seafood is in season and how it is priced before ordering; availability varies by day and location.",
@@ -101,21 +88,15 @@ public sealed class FoodGuideService
             SourceName = "Cebu Provincial Tourism Office",
             SourceUrl = CebuTourism
         },
-        new()
-        {
-            Id = 8,
-            Name = "Seafood with Rice",
-            Category = "Seafood & island flavors",
-            Location = "Coastal Cebu and Mactan",
-            Description = "A relaxed seafood meal with grilled catch and rice, suited to sharing after a day by the water.",
-            Story = "Seafood selection and price are usually tied to the day's catch and serving size. Confirm both with the restaurant before ordering; no fixed price is listed in this guide.",
-            ImageUrl = "/images/Grilled seafood with rice.jpg",
-            ImageAlt = "Grilled Cebu seafood served with rice",
-            SourceName = "Cebu Provincial Tourism Office",
-            SourceUrl = CebuTourism
-        }
     ];
 
     public IReadOnlyList<Dish> Dishes => dishes;
-    public Dish? Find(int id) => dishes.FirstOrDefault(dish => dish.Id == id);
+    public IEnumerable<string> Categories => dishes.Select(dish => dish.Category).Distinct();
+
+    public Dish? Find(int dishId)
+    {
+        // Preserve links to serving variations that were merged into their main dish.
+        var canonicalId = dishId switch { 6 => 5, 8 => 7, _ => dishId };
+        return dishes.FirstOrDefault(dish => dish.Id == canonicalId);
+    }
 }

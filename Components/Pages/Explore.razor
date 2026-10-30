@@ -12,8 +12,9 @@
 <section class="filter-panel" aria-label="Search and filter dishes">
     <label for="food-search">Find a dish or area</label>
     <input id="food-search" type="search" @bind="searchText" @bind:event="oninput" placeholder="Try lechon, seafood, Carcar…" autocomplete="off" />
-    <div class="filter-row"><span class="filter-label">Food type</span><div class="filter-chips" role="group" aria-label="Filter food by type">
-        @foreach (var category in categories)
+    <div class="filter-row"><span class="filter-label">Preparation</span><div class="filter-chips" role="group" aria-label="Filter dishes by preparation">
+        <button type="button" class="filter-chip @(selectedCategory is null ? "selected" : "")" aria-pressed="@(selectedCategory is null)" @onclick="() => selectedCategory = null">All</button>
+        @foreach (var category in FoodGuide.Categories)
         {
             <button type="button" class="filter-chip @(selectedCategory == category ? "selected" : "")" aria-pressed="@(selectedCategory == category)" @onclick="() => selectedCategory = category">@category</button>
         }
@@ -26,7 +27,7 @@
 <p class="result-count" aria-live="polite">@matchingDishes.Count @(matchingDishes.Count == 1 ? "dish" : "dishes") in the guide</p>
 @if (matchingDishes.Count == 0)
 {
-    <section class="empty-state"><span class="empty-icon" aria-hidden="true">⌕</span><h2>No dishes found</h2><p>Try a different dish name, area or food type.</p><button type="button" class="secondary-action" @onclick="ClearFilters">Clear search and filters</button></section>
+    <section class="empty-state"><span class="empty-icon" aria-hidden="true">⌕</span><h2>No dishes found</h2><p>Try a different dish name, area or preparation method.</p><button type="button" class="secondary-action" @onclick="ClearFilters">Clear search and filters</button></section>
 }
 else
 {
@@ -45,8 +46,7 @@ else
 
 @code {
     private string searchText = string.Empty;
-    private string selectedCategory = "All";
-    private readonly string[] categories = ["All", "Roast & share", "Grill & street food", "Seafood & island flavors"];
+    private string? selectedCategory;
 
     private bool MatchesFilters(Dish dish)
     {
@@ -56,13 +56,13 @@ else
             || dish.Category.Contains(query, StringComparison.OrdinalIgnoreCase)
             || dish.Location.Contains(query, StringComparison.OrdinalIgnoreCase)
             || dish.Description.Contains(query, StringComparison.OrdinalIgnoreCase);
-        return matchesQuery && (selectedCategory == "All" || dish.Category == selectedCategory);
+        return matchesQuery && (selectedCategory is null || dish.Category == selectedCategory);
     }
 
     private void ClearFilters()
     {
         searchText = string.Empty;
-        selectedCategory = "All";
+        selectedCategory = null;
     }
 }
 
