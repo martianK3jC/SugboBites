@@ -6,11 +6,11 @@
 <PageTitle>My Food Trail | Sugbo Bites</PageTitle>
 <HeadContent><meta name="description" content="Keep a personal list of Cebu dishes to try during this visit." /></HeadContent>
 
-<section class="page-intro trail-intro"><span class="eyebrow">Your Cebu food notes</span><h1>My food trail</h1><p>Keep the dishes you want to try together while you explore. Your list is private to this visit and clears when your server session ends.</p></section>
+<section class="page-intro trail-intro"><span class="eyebrow">Your Cebu food notes</span><h1>My food trail</h1><p>Keep the dishes you want to try together while you explore.</p><TrailLifetimeNote /></section>
 
 @if (TrailState.SavedDishes.Count == 0)
 {
-    <section class="empty-state"><span class="empty-icon" aria-hidden="true">✳</span><h2>Your trail starts with a dish</h2><p>Save lechon, ngohiong or a coastal seafood meal from the guide. No account is needed for this visit.</p><a class="primary-action" href="/explore">Explore Cebu's food <span aria-hidden="true">→</span></a></section>
+    <section class="empty-state"><span class="empty-icon" aria-hidden="true">✳</span><h2>Your trail starts with a dish</h2><p>Save lechon, ngohiong or a coastal seafood meal from the guide. Choose a dish to start your list.</p><a class="primary-action" href="/explore">Explore Cebu's food <span aria-hidden="true">→</span></a></section>
 }
 else
 {
@@ -21,7 +21,7 @@ else
             <li class="trail-item"><img src="@dish.ImageUrl" alt="@dish.ImageAlt" loading="lazy" decoding="async" /><div class="trail-item-copy"><span class="dish-category">@dish.Category</span><h3><a href="/food/@dish.Id">@dish.Name</a></h3><p>@dish.Location</p><a class="text-action" href="@dish.SourceUrl" target="_blank" rel="noopener noreferrer">Source: @dish.SourceName <span aria-hidden="true">↗</span></a></div><button type="button" class="remove-action" aria-label="Remove @dish.Name from your trail" @onclick="() => TrailState.Remove(dish.Id)">Remove</button></li>
         }
     </ol>
-    <section class="trail-tip"><span aria-hidden="true">i</span><p>Planning note: this is a personal checklist, not a booking or reservation. Confirm venue availability, current hours and prices directly before travelling.</p></section>
+    <section class="trail-tip"><span aria-hidden="true">i</span><p>Use this list to remember what you want to try. Check venue locations and opening hours before setting out.</p></section>
 }
 
 @code {

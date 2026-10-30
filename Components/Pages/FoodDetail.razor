@@ -16,9 +16,9 @@ else
     <div class="breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span><a href="/explore">Explore food</a><span aria-hidden="true">/</span><span>@dish.Name</span></div>
     <article class="detail-layout">
         <div class="detail-image"><img src="@dish.ImageUrl" alt="@dish.ImageAlt" fetchpriority="high" /></div>
-        <div class="detail-copy"><span class="eyebrow">@dish.Category</span><h1>@dish.Name</h1><p class="detail-description">@dish.Description</p><div class="detail-fact"><span>Where to look</span><strong>@dish.Location</strong></div><h2>A little context</h2><p>@dish.Story</p><button type="button" class="primary-action detail-save" @onclick="SaveDish" disabled="@TrailState.Contains(dish.Id)">@(TrailState.Contains(dish.Id) ? "Saved to your food trail ✓" : "＋ Save to my food trail")</button><p class="session-note">Saved for this visit in your current browser session. This guide does not book tables or track prices.</p></div>
+        <div class="detail-copy"><span class="eyebrow">@dish.Category</span><h1>@dish.Name</h1><p class="detail-description">@dish.Description</p><div class="detail-fact"><span>Where to look</span><strong>@dish.Location</strong></div><h2>A little context</h2><p>@dish.Story</p><button type="button" class="primary-action detail-save" @onclick="SaveDish" disabled="@TrailState.Contains(dish.Id)">@(TrailState.Contains(dish.Id) ? "Saved to your food trail ✓" : "＋ Save to my food trail")</button><TrailLifetimeNote /></div>
     </article>
-    <section class="citation-card"><div><span class="eyebrow">Further reading</span><h2>Check the source</h2><p>Destination and dish context from @dish.SourceName.</p></div><a class="source-link" href="@dish.SourceUrl" target="_blank" rel="noopener noreferrer">Open source <span aria-hidden="true">↗</span></a></section>
+    <section class="citation-card"><div><span class="eyebrow">Further reading</span><h2>Explore the destination</h2><p>Explore Cebu with @dish.SourceName.</p></div><a class="source-link" href="@dish.SourceUrl" target="_blank" rel="noopener noreferrer">Read more <span aria-hidden="true">↗</span></a></section>
     <div class="detail-back"><a href="/explore">← Back to all dishes</a><a href="/trail">View my food trail →</a></div>
 }
 

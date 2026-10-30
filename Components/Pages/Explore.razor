@@ -7,7 +7,7 @@
 <PageTitle>Explore Cebu Food | Sugbo Bites</PageTitle>
 <HeadContent><meta name="description" content="Explore Cebu's signature dishes, from lechon and ngohiong to grilled seafood. Save dishes to your own food trail." /></HeadContent>
 
-<section class="page-intro"><span class="eyebrow">Eat your way around the island</span><h1>Explore Cebu's food</h1><p>Get to know the dishes, then follow the source links for current destination and restaurant details.</p><div class="editorial-badge"><span aria-hidden="true">✓</span> Dish guide · no made-up prices or venue listings</div></section>
+<section class="page-intro"><span class="eyebrow">Eat your way around the island</span><h1>Explore Cebu's food</h1><p>Discover dishes to try, learn their stories, and save your favorites for this visit.</p></section>
 
 <section class="filter-panel" aria-label="Search and filter dishes">
     <label for="food-search">Find a dish or area</label>
@@ -24,7 +24,7 @@
 @{
     var matchingDishes = FoodGuide.Dishes.Where(MatchesFilters).ToList();
 }
-<p class="result-count" aria-live="polite">@matchingDishes.Count @(matchingDishes.Count == 1 ? "dish" : "dishes") in the guide</p>
+<p class="result-count" aria-live="polite">Showing @matchingDishes.Count of @FoodGuide.Dishes.Count dishes</p>
 @if (matchingDishes.Count == 0)
 {
     <section class="empty-state"><span class="empty-icon" aria-hidden="true">⌕</span><h2>No dishes found</h2><p>Try a different dish name, area or preparation method.</p><button type="button" class="secondary-action" @onclick="ClearFilters">Clear search and filters</button></section>
@@ -42,7 +42,7 @@ else
     </section>
 }
 
-<section class="source-panel"><div><span class="eyebrow">Plan with reliable details</span><h2>Looking for somewhere to eat?</h2><p>Browse venues through their own channels or the cited tourism and dining directories. Opening times, menus and prices can change.</p></div><a class="source-link" href="https://tourism.cebu.gov.ph/explore/" target="_blank" rel="noopener noreferrer">Cebu Provincial Tourism destinations <span aria-hidden="true">↗</span></a></section>
+<section class="source-panel"><div><span class="eyebrow">Explore more of Cebu</span><h2>Find your next food stop</h2><p>Browse Cebu Tourism for destination ideas. Check directly with a venue for its current menu, hours, and prices.</p></div><a class="source-link" href="https://tourism.cebu.gov.ph/explore/" target="_blank" rel="noopener noreferrer">Cebu Provincial Tourism destinations <span aria-hidden="true">↗</span></a></section>
 
 @code {
     private string searchText = string.Empty;
