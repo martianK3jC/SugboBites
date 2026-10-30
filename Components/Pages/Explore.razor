@@ -5,19 +5,22 @@
 
 <PageMetadata Title="Explore Cebu Food | Sugbo Bites"
               Description="Explore Cebu's signature dishes, from lechon and ngohiong to grilled seafood. Save dishes to your own food trail." />
-
-<section class="page-intro"><span class="eyebrow">Eat your way around the island</span><h1>Explore Cebu's food</h1><p>Discover dishes to try, learn their stories, and save your favorites for this visit.</p></section>
-
+<section class="page-intro"><span class="eyebrow">Eat your way around the island</span>
+    <h1>Explore Cebu's food</h1>
+    <p>Discover dishes to try, learn their stories, and save your favorites for this visit.</p>
+</section>
 <section class="filter-panel" aria-label="Search and filter dishes">
     <label for="food-search">Find a dish or area</label>
     <input id="food-search" type="search" @bind="searchText" @bind:event="oninput" placeholder="Try lechon, seafood, Carcar…" autocomplete="off" />
-    <div class="filter-row"><span class="filter-label">Preparation</span><div class="filter-chips" role="group" aria-label="Filter dishes by preparation">
-        <button type="button" class="filter-chip @(selectedCategory is null ? "selected" : "")" aria-pressed="@(selectedCategory is null ? "true" : "false")" @onclick="() => selectedCategory = null">All</button>
-        @foreach (var category in FoodGuide.Categories)
-        {
-            <button type="button" class="filter-chip @(selectedCategory == category ? "selected" : "")" aria-pressed="@(selectedCategory == category ? "true" : "false")" @onclick="() => selectedCategory = category">@category</button>
-        }
-    </div></div>
+    <div class="filter-row"><span class="filter-label">Preparation</span>
+        <div class="filter-chips" role="group" aria-label="Filter dishes by preparation">
+            <button type="button" class="filter-chip @(selectedCategory is null ? "selected" : "")" aria-pressed="@(selectedCategory is null ? "true" : "false")" @onclick="() => selectedCategory = null">All</button>
+            @foreach (var category in FoodGuide.Categories)
+            {
+                <button type="button" class="filter-chip @(selectedCategory == category ? "selected" : "")" aria-pressed="@(selectedCategory == category ? "true" : "false")" @onclick="() => selectedCategory = category">@category</button>
+            }
+        </div>
+    </div>
 </section>
 
 @{
@@ -26,7 +29,11 @@
 <p class="result-count" aria-live="polite">Showing @matchingDishes.Count of @FoodGuide.Dishes.Count dishes</p>
 @if (matchingDishes.Count == 0)
 {
-    <section class="empty-state"><span class="empty-icon" aria-hidden="true">⌕</span><h2>No dishes found</h2><p>Try a different dish name, area or preparation method.</p><button type="button" class="secondary-action" @onclick="ClearFilters">Clear search and filters</button></section>
+    <section class="empty-state"><span class="empty-icon" aria-hidden="true">⌕</span>
+        <h2>No dishes found</h2>
+        <p>Try a different dish name, area or preparation method.</p>
+        <button type="button" class="secondary-action" @onclick="ClearFilters">Clear search and filters</button>
+    </section>
 }
 else
 {
@@ -34,14 +41,32 @@ else
         @foreach (var dish in matchingDishes)
         {
             <article class="explore-card">
-                <a class="explore-image-link" href="/food/@dish.Id" aria-label="Read about @dish.Name"><img src="@dish.ImageUrl" alt="@dish.ImageAlt" loading="lazy" decoding="async" /></a>
-                <div class="explore-card-copy"><span class="dish-category">@dish.Category</span><h2><a href="/food/@dish.Id">@dish.Name</a></h2><p class="card-location">⌖ @dish.Location</p><p>@dish.Description</p><div class="explore-card-actions"><a class="text-action" href="/food/@dish.Id">Read dish story <span aria-hidden="true">→</span></a><SaveDishButton Dish="dish" Compact="true" /></div></div>
+                <a class="explore-image-link" href="/food/@dish.Id" aria-label="Read about @dish.Name">
+                    <img src="@dish.ImageUrl" alt="@dish.ImageAlt" loading="lazy" decoding="async" />
+                </a>
+                <div class="explore-card-copy"><span class="dish-category">@dish.Category</span>
+                    <h2>
+                        <a href="/food/@dish.Id">@dish.Name</a>
+                    </h2>
+                    <p class="card-location">⌖ @dish.Location</p>
+                    <p>@dish.Description</p>
+                    <div class="explore-card-actions">
+                        <a class="text-action" href="/food/@dish.Id">Read dish story <span aria-hidden="true">→</span></a>
+                        <SaveDishButton Dish="dish" Compact="true" />
+                    </div>
+                </div>
             </article>
         }
     </section>
 }
 
-<section class="source-panel"><div><span class="eyebrow">Explore more of Cebu</span><h2>Find your next food stop</h2><p>Browse Cebu Tourism for destination ideas. Check directly with a venue for its current menu, hours, and prices.</p></div><a class="source-link" href="https://tourism.cebu.gov.ph/explore/" target="_blank" rel="noopener noreferrer">Cebu Provincial Tourism destinations <span aria-hidden="true">↗</span></a></section>
+<section class="source-panel">
+    <div><span class="eyebrow">Explore more of Cebu</span>
+        <h2>Find your next food stop</h2>
+        <p>Browse Cebu Tourism for destination ideas. Check directly with a venue for its current menu, hours, and prices.</p>
+    </div>
+    <a class="source-link" href="https://tourism.cebu.gov.ph/explore/" target="_blank" rel="noopener noreferrer">Cebu Provincial Tourism destinations <span aria-hidden="true">↗</span></a>
+</section>
 
 @code {
     private string searchText = string.Empty;
@@ -64,4 +89,3 @@ else
         selectedCategory = null;
     }
 }
-

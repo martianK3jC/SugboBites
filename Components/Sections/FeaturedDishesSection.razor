@@ -1,0 +1,24 @@
+@inject FoodGuideService FoodGuide
+
+<section class="home-section" aria-labelledby="featured-title">
+    <div class="section-heading">
+        <div><span class="eyebrow">A first taste of Sugbo</span>
+            <h2 id="featured-title">Dishes worth getting to know</h2>
+        </div>
+        <a class="text-action" href="/explore">See the full food guide <span aria-hidden="true">→</span></a>
+    </div>
+    <div class="dish-grid">
+        @foreach (var dish in FoodGuide.Dishes.GroupBy(dish => dish.Category).Select(group => group.First()).Take(3))
+        {
+            <article class="dish-card">
+                <a class="dish-card-link" href="/food/@dish.Id" aria-label="Read about @dish.Name">
+                    <img src="@dish.ImageUrl" alt="@dish.ImageAlt" loading="lazy" decoding="async" />
+                    <div class="dish-copy"><span class="dish-category">@dish.Category</span>
+                        <h3>@dish.Name</h3>
+                        <p>@dish.Description</p><span class="card-more">Read the dish story <span aria-hidden="true">→</span></span>
+                    </div>
+                </a>
+            </article>
+        }
+    </div>
+</section>
