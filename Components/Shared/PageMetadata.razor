@@ -1,0 +1,9 @@
+<PageTitle>@Title</PageTitle>
+<HeadContent>
+    <meta name="description" content="@Description" />
+</HeadContent>
+
+@code {
+    [Parameter, EditorRequired] public string Title { get; set; } = string.Empty;
+    [Parameter, EditorRequired] public string Description { get; set; } = string.Empty;
+}

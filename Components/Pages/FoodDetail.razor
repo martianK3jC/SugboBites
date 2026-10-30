@@ -7,12 +7,12 @@
 
 @if (dish is null)
 {
-    <PageTitle>Dish not found | Sugbo Bites</PageTitle>
+    <PageMetadata Title="Dish not found | Sugbo Bites" Description="This dish is not in the guide. Browse Cebu dishes to find something to try." />
     <section class="empty-state"><span class="eyebrow">Food guide</span><h1>We couldn't find that dish</h1><p>It may have moved or the link may be incomplete.</p><a class="primary-action" href="/explore">Browse all dishes <span aria-hidden="true">→</span></a></section>
 }
 else
 {
-    <PageTitle>@dish.Name | Sugbo Bites</PageTitle>
+    <PageMetadata Title="@($"{dish.Name} | Sugbo Bites")" Description="@dish.Description" />
     <div class="breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span><a href="/explore">Explore food</a><span aria-hidden="true">/</span><span>@dish.Name</span></div>
     <article class="detail-layout">
         <div class="detail-image"><img src="@dish.ImageUrl" alt="@dish.ImageAlt" fetchpriority="high" /></div>
