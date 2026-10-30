@@ -7,7 +7,12 @@ public sealed class FoodTrailState
 {
     private readonly List<Dish> savedDishes = [];
 
-    public IReadOnlyList<Dish> SavedDishes => savedDishes;
+    public FoodTrailState()
+    {
+        SavedDishes = savedDishes.AsReadOnly();
+    }
+
+    public IReadOnlyList<Dish> SavedDishes { get; }
     public event Action? Changed;
 
     public bool Contains(int dishId) => savedDishes.Any(dish => dish.Id == dishId);

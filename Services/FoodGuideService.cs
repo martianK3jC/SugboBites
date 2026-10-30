@@ -8,7 +8,7 @@ public sealed class FoodGuideService
     private const string CebuTourism = "https://tourism.cebu.gov.ph/";
     private const string CarcarTourism = "https://tourism.cebu.gov.ph/explore/carcar-city/";
 
-    private readonly IReadOnlyList<Dish> dishes =
+    private readonly IReadOnlyList<Dish> dishes = Array.AsReadOnly<Dish>(
     [
         new()
         {
@@ -88,7 +88,7 @@ public sealed class FoodGuideService
             SourceName = "Cebu Provincial Tourism Office",
             SourceUrl = CebuTourism
         },
-    ];
+    ]);
 
     public IReadOnlyList<Dish> Dishes => dishes;
     public IEnumerable<string> Categories => dishes.Select(dish => dish.Category).Distinct();

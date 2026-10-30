@@ -2,7 +2,7 @@
 using SugboBites.Services;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddScoped<FoodGuideService>();
+builder.Services.AddSingleton<FoodGuideService>();
 builder.Services.AddScoped<FoodTrailState>();
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
