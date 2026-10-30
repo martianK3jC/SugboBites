@@ -11,7 +11,7 @@ Sugbo Bites is a responsive Cebu food guide built with Blazor. It introduces loc
 - Local food photography served from `wwwroot/images`.
 - Source links for destination and restaurant information. Venue menus, hours, and prices are not presented as verified live data.
 
-The food guide is editorial content stored in `FoodGuideService`; the application does not connect to a restaurant, booking, or tourism API. The saved trail is in-memory per Blazor Server circuit and is not retained after a refresh or a new session.
+The guide contains six distinct dish entries, including the Carcar variation of lechon. Dish introductions live in `FoodGuideService`; destination and restaurant cards link to external publishers for further reading. The food trail is a checklist of dishes to try. It is held in memory per Blazor Server circuit and clears after a page refresh or a new session.
 
 ## Tech stack
 
@@ -23,13 +23,13 @@ The food guide is editorial content stored in `FoodGuideService`; the applicatio
 
 ## Prerequisites
 
-Install the .NET 8 SDK, Node.js with npm, and Git. No database, API key, or other secret is required for the current implementation.
+Install the .NET 8 SDK, Node.js 20 or newer with npm, and Git. No database, API key, or other secret is required for the current implementation.
 
 ## Get started
 
 From the `SugboBites` project directory:
 
-```powershell
+```sh
 dotnet restore
 npm ci
 npm run build:css
@@ -40,19 +40,19 @@ Open the URL printed by `dotnet run`. The included `http` launch profile uses `h
 
 To run the app with .NET hot reload while editing:
 
-```powershell
-dotnet watch --project .\SugboBites.csproj run --launch-profile http
+```sh
+dotnet watch --project SugboBites.csproj run --launch-profile http
 ```
 
 To rebuild the CSS after editing styles or Razor markup:
 
-```powershell
+```sh
 npm run build:css
 ```
 
 For continuous CSS rebuilding, run this in a separate terminal:
 
-```powershell
+```sh
 npm run watch:css
 ```
 
@@ -60,7 +60,7 @@ npm run watch:css
 
 Build the .NET application:
 
-```powershell
+```sh
 dotnet build
 ```
 
@@ -68,7 +68,7 @@ There is currently no automated test project in this repository. `dotnet test` t
 
 ## Configuration
 
-The application uses the standard `appsettings.json` and `appsettings.Development.json` files for logging and host configuration. The current files contain no credentials, and the app does not require environment secrets. Keep future local overrides in files such as `appsettings.Local.json` or `appsettings.Development.local.json`, or configure environment variables. If the app later needs development secrets, configure a User Secrets ID before using .NET User Secrets. Those local files and common secret formats are excluded by `.gitignore`.
+The application loads `appsettings.json` and `appsettings.{Environment}.json`, with environment variables available for local overrides. The current configuration contains no credentials. Files such as `appsettings.Local.json` and `appsettings.Development.local.json` are ignored by Git but are not loaded automatically; register them explicitly with `AddJsonFile` if they are introduced. If development secrets are needed later, configure a User Secrets ID before using .NET User Secrets.
 
 ## Routes
 
@@ -79,9 +79,18 @@ The application uses the standard `appsettings.json` and `appsettings.Developmen
 | `/food/{id}` | Dish detail and source links |
 | `/trail` | Saved dishes for the current visit |
 
-## Screenshots
+The former serving-variation URLs `/food/6` and `/food/8` redirect to `/food/5` and `/food/7`. Unknown dish IDs and unknown pages return HTTP 404.
 
-No screenshots are currently included. Add captures of the home, Explore, dish detail, and food trail pages under `docs/screenshots/` and link them here when available.
+## Project structure
+
+- `Models/Dish.cs`: the dish data contract, with required properties.
+- `Services/FoodGuideService.cs`: the shared, read-only catalog, dish lookup, and available preparation filters.
+- `Services/FoodTrailState.cs`: a visitor's saved dishes and change notifications, registered as a scoped service.
+- `Components/Pages/`: routed pages and their page-specific state.
+- `Components/Sections/`: featured dishes, destinations, and dining sections composed by the home page.
+- `Components/Shared/`: reusable page metadata, save controls, and the saved-list lifetime notice.
+- `Styles/tailwind.input.css`: the source stylesheet. Rebuild `wwwroot/app.css` with `npm run build:css` after changing it.
+- `wwwroot/`: food images, the site icon, and browser assets.
 
 ## Content and attribution
 
